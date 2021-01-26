@@ -1,0 +1,44 @@
+#!/usr/bin/python3
+import sys
+import shutil
+import os
+import glob 
+
+if len(sys.argv) < 2:
+    print('''
+    arg 1 - from filder
+    arg 2 - *.jpg (example)
+    arg 3 - how many files to copy
+    arg 4 - to path
+    ''')
+    exit()
+
+arg1 = sys.argv[1]
+arg2 = sys.argv[3]
+files = sys.argv[2]
+topath = sys.argv[4]
+
+counter = 0
+
+if not os.path.exists(topath):
+    os.mkdir(topath)
+
+if os.path.exists(arg1):
+    path = arg1
+else:
+    print('Folder does not exist')
+    exit()
+
+if arg2.isdigit():
+    lencp = int(arg2)
+else:
+    print('Len Only digit')
+    exit()
+
+for file in glob.glob(f'{path}/{files}'):
+    if lencp <= counter:
+        print('Done')
+        exit()
+    shutil.copy2(file, topath)
+    print('copied', file)
+    counter += 1
